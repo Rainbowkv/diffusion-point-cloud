@@ -3,6 +3,7 @@ import time
 import argparse
 import torch
 from tqdm.auto import tqdm
+from datetime import datetime
 
 from utils.dataset import *
 from utils.misc import *
@@ -23,7 +24,7 @@ parser.add_argument('--batch_size', type=int, default=128)
 args = parser.parse_args()
 
 # Logging
-save_dir = os.path.join(args.save_dir, 'AE_Ours_%s_%d' % ('_'.join(args.categories), int(time.time())) )
+save_dir = os.path.join(args.save_dir, 'AE_' + datetime.now().strftime('%Y-%m-%d-%H-%M-%S'))
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 logger = get_logger('test', save_dir)

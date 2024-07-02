@@ -51,7 +51,7 @@ args = parser.parse_args()
 
 
 # Logging
-save_dir = os.path.join(args.save_dir, datetime.now().strftime('%Y-%m-%d-%H-%M-%S'))
+save_dir = os.path.join(args.save_dir, args.categories[0] + '_' + datetime.now().strftime('%Y-%m-%d-%H-%M-%S'))
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 logger = get_logger('test', save_dir)
@@ -92,6 +92,7 @@ ref_pcs = torch.cat(ref_pcs, dim=0)
 
 # Generate Point Clouds
 gen_pcs = []
+# for i in tqdm(range(0, 1), 'Generate'):
 for i in tqdm(range(0, math.ceil(len(test_dset) / args.batch_size)), 'Generate'):
     with torch.no_grad():
         z = torch.randn([args.batch_size, ckpt['args'].latent_dim]).to(args.device)
